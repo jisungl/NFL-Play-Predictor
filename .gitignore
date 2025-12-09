@@ -1,0 +1,48 @@
+# In your project root
+touch .gitignore
+```
+
+**Add this content to `.gitignore`:**
+```
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Data files (too large for GitHub)
+data/*.csv
+data/*.parquet
+*.pkl
+*.joblib
+
+# Model files (can be too large)
+models/*.pkl
+models/*.joblib
+
+# Keep the images but ignore large files
+!models/*.png
+!models/*.jpg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Environment variables
+.env
