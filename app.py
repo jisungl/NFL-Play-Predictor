@@ -53,21 +53,20 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     st.subheader("Game Situation")
-    down = st.selectbox("Down", [1, 2, 3, 4])
-    ydstogo = st.slider("Yards to Go", 1, 30, 10)
-    yardline_100 = st.slider("Yards to Endzone", 1, 99, 50)
-    quarter = st.selectbox("Quarter", [1, 2, 3, 4])
+    down = st.selectbox("Down", [1, 2, 3, 4], key="down")
+    ydstogo = st.slider("Yards to Go", 1, 30, 10, key="ydstogo")
+    yardline_100 = st.slider("Yards to Endzone", 1, 99, 50, key="yardline")
+    quarter = st.selectbox("Quarter", [1, 2, 3, 4], key="quarter")
 
 with col2:
-    st.subheader("⏱️ Game Clock")
-    quarter = st.selectbox("Quarter", [1, 2, 3, 4])
+    st.subheader("Game Clock")
     
     # current qtr time remaining
     col_min, col_sec = st.columns(2)
     with col_min:
-        minutes = st.number_input("Minutes", min_value=0, max_value=15, value=7, step=1)
+        minutes = st.number_input("Minutes", min_value=0, max_value=15, value=7, step=1, key="minutes")
     with col_sec:
-        seconds = st.number_input("Seconds", min_value=0, max_value=59, value=30, step=1)
+        seconds = st.number_input("Seconds", min_value=0, max_value=59, value=30, step=1, key="seconds")
     
     # current qtr seconds
     quarter_seconds = (minutes * 60) + seconds
@@ -79,7 +78,7 @@ with col2:
         game_seconds = 1800 + quarter_seconds
     elif quarter == 3:
         game_seconds = 900 + quarter_seconds
-    else:  # Quarter 4
+    else:
         game_seconds = quarter_seconds
     
     if quarter <= 2:
@@ -91,17 +90,17 @@ with col2:
     total_secs = game_seconds % 60
     st.caption(f"Total game time: {total_mins}:{total_secs:02d} remaining")
     
-    score_diff = st.slider("Score Differential", -28, 28, 0)
-    posteam_to = st.slider("Offense Timeouts", 0, 3, 3)
-    defteam_to = st.slider("Defense Timeouts", 0, 3, 3)
+    score_diff = st.slider("Score Differential", -28, 28, 0, key="score_diff")
+    posteam_to = st.slider("Offense Timeouts", 0, 3, 3, key="posteam_to")
+    defteam_to = st.slider("Defense Timeouts", 0, 3, 3, key="defteam_to")
 
 with col3:
-    st.subheader("Personnel")
-    num_rbs = st.selectbox("RBs", [0, 1, 2, 3], index=1)
-    num_tes = st.selectbox("TEs", [0, 1, 2, 3], index=1)
-    num_wrs = st.selectbox("WRs", [0, 1, 2, 3, 4, 5], index=3)
-    is_shotgun = st.checkbox("Shotgun Formation", value=False)
-    is_no_huddle = st.checkbox("No Huddle", value=False)
+    st.subheader("👥 Personnel")
+    num_rbs = st.selectbox("RBs", [0, 1, 2, 3], index=1, key="num_rbs")
+    num_tes = st.selectbox("TEs", [0, 1, 2, 3], index=1, key="num_tes")
+    num_wrs = st.selectbox("WRs", [0, 1, 2, 3, 4, 5], index=3, key="num_wrs")
+    is_shotgun = st.checkbox("Shotgun Formation", value=False, key="shotgun")
+    is_no_huddle = st.checkbox("No Huddle", value=False, key="no_huddle")
 
 def create_input_features(feature_names):
     """Create feature vector matching model training"""
