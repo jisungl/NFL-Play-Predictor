@@ -52,7 +52,7 @@ with st.sidebar:
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.subheader("📍 Game Situation")
+    st.subheader("Game Situation")
     down = st.selectbox("Down", [1, 2, 3, 4])
     ydstogo = st.slider("Yards to Go", 1, 30, 10)
     yardline_100 = st.slider("Yards to Endzone", 1, 99, 50)
@@ -60,13 +60,43 @@ with col1:
 
 with col2:
     st.subheader("⏱️ Game Clock")
-    game_seconds = st.slider("Seconds Remaining", 0, 3600, 1800)
+    quarter = st.selectbox("Quarter", [1, 2, 3, 4])
+    
+    # current qtr time remaining
+    col_min, col_sec = st.columns(2)
+    with col_min:
+        minutes = st.number_input("Minutes", min_value=0, max_value=15, value=7, step=1)
+    with col_sec:
+        seconds = st.number_input("Seconds", min_value=0, max_value=59, value=30, step=1)
+    
+    # current qtr seconds
+    quarter_seconds = (minutes * 60) + seconds
+    st.caption(f"⏱️ Time in Quarter: {minutes:02d}:{seconds:02d}")
+    
+    if quarter == 1:
+        game_seconds = 2700 + quarter_seconds
+    elif quarter == 2:
+        game_seconds = 1800 + quarter_seconds
+    elif quarter == 3:
+        game_seconds = 900 + quarter_seconds
+    else:  # Quarter 4
+        game_seconds = quarter_seconds
+    
+    if quarter <= 2:
+        half_seconds_remaining = 900 + quarter_seconds if quarter == 1 else quarter_seconds
+    else:
+        half_seconds_remaining = 900 + quarter_seconds if quarter == 3 else quarter_seconds
+    
+    total_mins = game_seconds // 60
+    total_secs = game_seconds % 60
+    st.caption(f"Total game time: {total_mins}:{total_secs:02d} remaining")
+    
     score_diff = st.slider("Score Differential", -28, 28, 0)
     posteam_to = st.slider("Offense Timeouts", 0, 3, 3)
     defteam_to = st.slider("Defense Timeouts", 0, 3, 3)
 
 with col3:
-    st.subheader("👥 Personnel")
+    st.subheader("Personnel")
     num_rbs = st.selectbox("RBs", [0, 1, 2, 3], index=1)
     num_tes = st.selectbox("TEs", [0, 1, 2, 3], index=1)
     num_wrs = st.selectbox("WRs", [0, 1, 2, 3, 4, 5], index=3)
@@ -113,7 +143,7 @@ def create_input_features(feature_names):
     return input_df
 
 # predict button
-if st.button("🔮 Predict Play Type", type="primary", use_container_width=True):
+if st.button("Predict Play Type", type="primary", use_container_width=True):
     input_data = create_input_features(feature_names)
     
     probs = model.predict_proba(input_data)[0]
