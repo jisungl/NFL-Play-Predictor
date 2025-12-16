@@ -12,19 +12,13 @@ This project uses machine learning to predict NFL play-calling decisions in real
 - **Run Left/Middle/Right**
 - **Pass Short/Medium/Deep**
 
-## Features
+### Features
 
 - Multi-class XGBoost Classifier trained on 200K+ plays from 2018-2023 NFL seasons
 - 50+ engineered features including down/distance, personnel groupings, formations, and advanced metrics
 - Interactive Streamlit Dashboard for real-time predictions
 - Model Explainability with feature importance rankings and confusion matrices
 - Achieves ~52% accuracy on multi-class prediction task
-
-## Quick Start
-
-### Prerequisites
-- Python 3.8+
-- pip
 
 ### Installation
 
@@ -54,8 +48,6 @@ python train_model.py
 ```bash
 streamlit run app.py
 ```
-
-## Details
 
 ### Model
 - **Algorithm**: XGBoost Multi-class Classifier
