@@ -69,11 +69,7 @@ streamlit run app.py
 - Formation types (shotgun, no-huddle, etc.)
 - Contextual flags (redzone, two-minute drill, etc.)
 - Advanced metrics (win probability, expected points)
-
-### Performance
-- **Overall Accuracy**: ~52%
-- **Training Time**: ~5 minutes on standard laptop
-- **Inference**: <100ms per prediction
+- 52% overall accuracy
 
 ## Data Source
 
