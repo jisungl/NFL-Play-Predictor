@@ -6,7 +6,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from PIL import Image
 
-st.set_page_config(page_title="NFL Play Predictor Pro", page_icon="🏈", layout="wide")
+st.set_page_config(
+    page_title="NFL Play Predictor", 
+    page_icon="favicon.png",
+    layout="wide"
+)
 
 # load model
 @st.cache_resource
@@ -17,19 +21,19 @@ def load_model():
     importance_df = joblib.load('models/feature_importance.pkl')
     return model, le, features, importance_df
 
-st.title("🏈 NFL Play-Calling Predictor Pro")
+st.title("🏈 NFL Play-Calling Predictor")
 st.markdown("Predict **6 play types**: Short/Medium/Deep Pass + Run Left/Middle/Right")
 
 try:
     model, label_encoder, feature_names, importance_df = load_model()
-    st.success("✅ Multi-class model loaded!")
+    st.success("Model loaded")
 except Exception as e:
-    st.error(f"⚠️ Model not found. Run `python train_model.py` first!\n{e}")
+    st.error(f"Model not found. Run `python train_model.py`\n{e}")
     st.stop()
 
 # sidebar
 with st.sidebar:
-    st.header("📊 Model Insights")
+    st.header("Model Insights")
     
     viz_option = st.radio("Select Visualization:", 
                           ["Feature Importance", "Confusion Matrix"])
@@ -70,7 +74,7 @@ with col2:
     
     # current qtr seconds
     quarter_seconds = (minutes * 60) + seconds
-    st.caption(f"⏱️ Time in Quarter: {minutes:02d}:{seconds:02d}")
+    st.caption(f"⏱Time in Quarter: {minutes:02d}:{seconds:02d}")
     
     if quarter == 1:
         game_seconds = 2700 + quarter_seconds
@@ -95,7 +99,7 @@ with col2:
     defteam_to = st.slider("Defense Timeouts", 0, 3, 3, key="defteam_to")
 
 with col3:
-    st.subheader("👥 Personnel")
+    st.subheader("Personnel")
     num_rbs = st.selectbox("RBs", [0, 1, 2, 3], index=1, key="num_rbs")
     num_tes = st.selectbox("TEs", [0, 1, 2, 3], index=1, key="num_tes")
     num_wrs = st.selectbox("WRs", [0, 1, 2, 3, 4, 5], index=3, key="num_wrs")
@@ -150,7 +154,7 @@ if st.button("Predict Play Type", type="primary", use_container_width=True):
     predicted_label = label_encoder.inverse_transform([predicted_class])[0]
     
     st.markdown("---")
-    st.subheader("🎯 Prediction Results")
+    st.subheader("Prediction Results")
     
     prob_df = pd.DataFrame({
         'Play Type': label_encoder.classes_,
@@ -176,37 +180,12 @@ if st.button("Predict Play Type", type="primary", use_container_width=True):
         st.pyplot(fig)
     
     with col2:
-        st.metric("🎯 Predicted Play", predicted_label.replace('_', ' ').title())
-        st.metric("✨ Confidence", f"{probs.max():.1%}")
+        st.metric("Predicted Play", predicted_label.replace('_', ' ').title())
+        st.metric("Confidence", f"{probs.max():.1%}")
         
         st.markdown("**Top 3 Predictions:**")
         for i, row in prob_df.head(3).iterrows():
             st.write(f"{i+1}. {row['Play Type'].replace('_', ' ').title()}: {row['Probability']:.1%}")
-    
-    st.markdown("---")
-    st.subheader("📈 Situational Context")
-    
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        if ydstogo <= 2:
-            st.info("🏃 **Short yardage** - Higher run probability expected")
-        elif ydstogo >= 10:
-            st.info("✈️ **Long yardage** - Higher pass probability expected")
-        else:
-            st.info("⚖️ **Balanced situation**")
-    
-    with col2:
-        if yardline_100 <= 5:
-            st.warning("**Goal line** - Run-heavy situation")
-        elif yardline_100 <= 20:
-            st.warning("**Red zone** - Mixed playcalling")
-    
-    with col3:
-        if score_diff >= 14:
-            st.success("**Leading big** - Run clock expected")
-        elif score_diff <= -14:
-            st.error("**Trailing big** - Pass-heavy expected")
 
 st.markdown("---")
 st.caption("Built with XGBoost on 6 seasons of NFL play-by-play data (2018-2023)")
