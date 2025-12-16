@@ -14,11 +14,11 @@ This project uses machine learning to predict NFL play-calling decisions in real
 
 ## Features
 
-- **Multi-class XGBoost Classifier** trained on 200K+ plays from 2018-2023 NFL seasons
-- **50+ engineered features** including down/distance, personnel groupings, formations, and advanced metrics
-- **Interactive Streamlit Dashboard** for real-time predictions
-- **Model Explainability** with feature importance rankings and confusion matrices
-- **Achieves ~52% accuracy** on multi-class prediction task
+- Multi-class XGBoost Classifier trained on 200K+ plays from 2018-2023 NFL seasons
+- 50+ engineered features including down/distance, personnel groupings, formations, and advanced metrics
+- Interactive Streamlit Dashboard for real-time predictions
+- Model Explainability with feature importance rankings and confusion matrices
+- Achieves ~52% accuracy on multi-class prediction task
 
 ## Quick Start
 
