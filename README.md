@@ -56,20 +56,6 @@ python train_model.py
 streamlit run app.py
 ```
 
-## 📁 Project Structure
-```
-nfl-play-predictor/
-├── data/              # NFL play-by-play data (git-ignored)
-├── models/            # Trained models and visualizations
-├── utils/             
-│   ├── data_loader.py          # Data fetching from nflfastR
-│   └── feature_engineering.py  # Feature creation pipeline
-├── app.py             # Streamlit web application
-├── train_model.py     # Model training script
-├── requirements.txt   # Python dependencies
-└── README.md
-```
-
 ## 🛠️ Technical Details
 
 ### Model
