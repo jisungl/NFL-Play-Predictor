@@ -49,14 +49,13 @@ pip install -r requirements.txt
 ```bash
 python train_model.py
 ```
-*Note: This will download ~2GB of NFL data and take 10-15 minutes*
 
 5. Run the Streamlit app:
 ```bash
 streamlit run app.py
 ```
 
-## 🛠️ Technical Details
+## Details
 
 ### Model
 - **Algorithm**: XGBoost Multi-class Classifier
@@ -75,25 +74,6 @@ streamlit run app.py
 - **Overall Accuracy**: ~52%
 - **Training Time**: ~5 minutes on standard laptop
 - **Inference**: <100ms per prediction
-
-## Example Predictions
-
-**Scenario**: 3rd & 5, midfield, 2 minutes left, down by 7
-- **Pass Short**: 45%
-- **Pass Medium**: 30%
-- **Run Middle**: 15%
-- **Pass Deep**: 7%
-- **Run Left**: 2%
-- **Run Right**: 1%
-
-## Future Improvements
-
-- [ ] Add real-time game data integration
-- [ ] Implement LSTM for play sequence prediction
-- [ ] Add player-specific tendencies (QB, RB stats)
-- [ ] Incorporate defensive scheme recognition
-- [ ] Build API for external integration
-- [ ] Add historical accuracy tracking over time
 
 ## Data Source
 
