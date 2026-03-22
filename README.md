@@ -52,7 +52,7 @@ The app provides an interactive prediction interface with three input panels:
 
 - **Game Situation** — down, yards to go, field position, quarter
 - **Game Clock** — minutes/seconds remaining, score differential, timeouts for each team
-- **Personnel** — RB/TE/WR counts, shotgun and no-huddle toggles
+- **Personnel** — RB/TE/WR counts, shotgun and no-huddle toggle
 
 Clicking "Predict" returns a probability distribution across all six play types, displayed as a horizontal bar chart alongside the top prediction and its confidence. The sidebar provides model diagnostics including feature importance rankings and a confusion matrix.
 
